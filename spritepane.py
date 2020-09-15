@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # _*_ coding:UTF-8 _*_
 import tkinter as tk
-from pil import Image, ImageTk, ImageSequence
+from PIL import Image, ImageTk, ImageSequence
 import os
 from threading import Thread
 
