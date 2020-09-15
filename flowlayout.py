@@ -7,7 +7,7 @@ from spritepane import SpritePane
 from tkinter import filedialog, messagebox
 import configparser
 from tkinter import ttk
-from pil import Image, ImageTk, ImageSequence
+from PIL import Image, ImageTk, ImageSequence
 
 
 class Flowlayout(tk.Frame):
