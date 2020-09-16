@@ -9,6 +9,12 @@ import configparser
 from tkinter import ttk
 from PIL import Image, ImageTk, ImageSequence
 
+extvd = ('.mp4', '.flv', '.avi', '.mpg', '.mkv', 
+        '.webm', '.ts', '.mov', '.MP4', '.FLV',
+        '.MPG', '.AVI', '.MKV', 'WEBM', '.MOV',
+        '.TS')
+        
+extim = ('.jpeg', '.jpg', '.png', '.gif')
 
 class Flowlayout(tk.Frame):
     def __init__(self, parent=None):
