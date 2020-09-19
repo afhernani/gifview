@@ -66,8 +66,10 @@ class MediaImage:
             time.sleep(0.03)
             while frame is None:
                 frame, val = self._player.get_frame()
-                time.sleep(0.03)
+                # time.sleep(0.03)
                 print(val)
+                if val == 'eof':
+                    break
             img, t = frame
             print(pts, val, t, img.get_pixel_format(), img.get_buffer_size())
             data = img.to_memoryview()[0].memview
