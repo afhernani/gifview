@@ -20,7 +20,7 @@ class Flowlayout(tk.Frame):
     def __init__(self, parent=None):
         tk.Frame.__init__(self, parent)
         self.parent = parent
-
+        self.split_width, self.split_height = 300, 210
         self.parent.title('gifview')
         # self.parent.iconbitmap('@./../ico/super.ico')
         self.parent['bg'] = 'Yellow'
@@ -61,11 +61,15 @@ class Flowlayout(tk.Frame):
             return
         config = configparser.RawConfigParser()
         config.read(self.setingfile)
-        dirpathmovies = config.get('Setings', 'dirpathmovies')
-        if os.path.exists(dirpathmovies):
-            self.dirpathmovies.set(dirpathmovies)
-            # inicializa la lista con directorio duardao
-
+        try:
+            dirpathmovies = config.get('Setings', 'dirpathmovies')
+            size = config.get('Setings', 'split_size')
+            self.split_width, self.split_height = size[0], size[1]
+            if os.path.exists(dirpathmovies):
+                self.dirpathmovies.set(dirpathmovies)
+                # inicializa la lista con directorio duardao
+        except configparser.NoOptionError as e:
+            print(str(e.args))
 
     def set_init_status(self):
         '''
@@ -75,19 +79,17 @@ class Flowlayout(tk.Frame):
         config = configparser.RawConfigParser()
         config.add_section('Setings')
         config.set('Setings', 'dirpathmovies', self.dirpathmovies.get())
+        config.set('Setings', 'split_size', (self.split_width, self.split_height))
         with open(self.setingfile, 'w') as configfile:
             config.write(configfile)
         print('Write config file')
 
 
     def load_from_file(self):
-        exten = ('.gif', '.GIF')
-        dirthumbs = os.path.join(self.dirpathmovies.get(), 'Thumbails')
-        print(dirthumbs)
-        if os.path.exists(dirthumbs):
-            for fe in os.listdir(dirthumbs):
-                if fe.endswith(exten):
-                    fex = os.path.abspath(os.path.join(dirthumbs, fe))
+        if os.path.exists(self.dirpathmovies.get()):
+            for fe in os.listdir(self.dirpathmovies.get()):
+                if fe.endswith(extvd):
+                    fex = os.path.abspath(os.path.join(self.dirpathmovies.get(), fe))
                     print(fex)
                     self.textwidget.window_create(tk.INSERT, window=self.load_sprite(arg=fex))
 
@@ -109,7 +111,7 @@ class Flowlayout(tk.Frame):
     def load_sprite(self, arg):
         if not os.path.isfile(arg):
             print("is not a file")
-        return SpritePane(self.textwidget, fileImagen=arg)
+        return SpritePane(self.textwidget, url=arg)
 
     def mouse_scroll(self, event):
         print('mouse_scroll_control')
