@@ -1,4 +1,4 @@
-# App GifView
+# App GifView for dinamic gif
 ## Edicion, Composicion, Imagenes, Videos
 
 ### Construyendo un visor de imagenes GUI en tk, con formato de entrad .gif que son almacenados en un directorio oculto de nombre .Thumbails, en el directorio base de los archivos de video del path raiz. Los ficheros de videos pueden ser de los formatos más comunes, .mp4, .flv, .avi, ... etc,. Los thumbails de los videos de raiz se pueden crear utilizando la aplicacion ffpyplayer, así, obtenemos un conjunto de imagenes, creando el gif. el visor gifview enlaza con los videos correspondientes en los archivos de raiz designado.
