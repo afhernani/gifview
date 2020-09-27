@@ -5,6 +5,8 @@ from PIL import Image, ImageTk, ImageSequence
 import os, sys, subprocess
 from threading import Thread
 from ffmpgelib import MediaImage, Graphics
+from ffmpgelib import createToolTip
+from datetime import timedelta
 
 class SpritePane(tk.Frame):
     def __init__(self, parent, url=None, timer=None, **kargs):
@@ -31,8 +33,12 @@ class SpritePane(tk.Frame):
         self.source = ''
         eurl, esou = self.check_exist()
         self.graphics = Graphics()
+        self.metadatos = None
+        mediaplay = MediaImage(self.url)
+        self.metadatos = mediaplay.metadata
         if esou:
             # si los dos existen solo creamos
+            del mediaplay
             kv = {'path': self.source, 'transform':True, 
                 'width':self.width, 'height':self.height }
             self.graphics.config(**kv)
@@ -40,12 +46,14 @@ class SpritePane(tk.Frame):
             # imagen de carga de video espera.
             # solo existe el video
             # TODO: desarrollar la extraccion y la adicción
-            mediaplay = MediaImage(self.url)
             mediaplay.extract(ni=self.ni, save=True)
             del mediaplay
             kv = {'path': self.source, 'transform':True, 
                 'width':self.width, 'height':self.height }
             self.graphics.config(**kv)
+        # tooltips -create
+        text=str(timedelta(seconds=self.metadatos['duration']))
+        createToolTip(self, text)
         # extraemos imagen:
         self.count = self.graphics.imgBox.count
         self.index = 5
