@@ -70,12 +70,13 @@ class MediaImage:
                 print(val)
                 if val == 'eof':
                     break
-            img, t = frame
-            print(pts, val, t, img.get_pixel_format(), img.get_buffer_size())
-            data = img.to_memoryview()[0].memview
-            image = Image.frombytes(mode='RGB', size=img.get_size(), data=data)
-            self.imgs.append(image)
-            time.sleep(val)
+            if frame:
+                img, t = frame
+                print(pts, val, t, img.get_pixel_format(), img.get_buffer_size())
+                data = img.to_memoryview()[0].memview
+                image = Image.frombytes(mode='RGB', size=img.get_size(), data=data)
+                self.imgs.append(image)
+                time.sleep(val)
             
         self._player.toggle_pause()
         if save and len(self.imgs)>=1:
