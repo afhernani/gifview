@@ -143,6 +143,7 @@ class Flowlayout(tk.Frame):
 def main():
     root = tk.Tk()
     root.geometry("850x600+100+100")
+    root.iconphoto(True, tk.PhotoImage(file='sprite.png'))
     app = Flowlayout(parent=root)
     app.mainloop()
 
