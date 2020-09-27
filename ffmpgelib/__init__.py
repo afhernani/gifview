@@ -19,10 +19,12 @@ try:
     from .ffmplayer import MediaImage
     from .graphicblock import Graphics
     from .imageblock import ImageBlock
+    from .ToolTip import ToolTip, createToolTip
 except:
     from ffmplayer import MediaImage
     from graphicblock import Graphics
     from imageblock import ImageBlock
+    from ToolTip import ToolTip, createToolTip
 
 
 
