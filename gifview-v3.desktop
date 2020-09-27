@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Gifview-v3
+GenericName=Gifview
+Path=/media/hernani/WDatos/Share/afhernani.com/gifview
+Exec=python3 flowlayout.py
+Icon=/media/hernani/WDatos/Share/afhernani.com/gifview/images/pirate.png
+NoDisplay=false
+Terminal=false
+Categories=Utility;FileTools;
+StartupNotify=true
