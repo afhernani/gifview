@@ -10,9 +10,9 @@ from tkinter import ttk
 from PIL import Image, ImageTk, ImageSequence
 
 extvd = ('.mp4', '.flv', '.avi', '.mpg', '.mkv', 
-        '.webm', '.ts', '.mov', '.MP4', '.FLV',
-        '.MPG', '.AVI', '.MKV', 'WEBM', '.MOV',
-        '.TS')
+         '.webm', '.ts', '.mov', '.MP4', '.FLV',
+         '.MPG', '.AVI', '.MKV', 'WEBM', '.MOV',
+         '.TS')
         
 extim = ('.jpeg', '.jpg', '.png', '.gif')
 
@@ -64,7 +64,8 @@ class Flowlayout(tk.Frame):
         try:
             dirpathmovies = config.get('Setings', 'dirpathmovies')
             size = config.get('Setings', 'split_size')
-            self.split_width, self.split_height = size[0], size[1]
+            size = size.split(',')
+            self.split_width, self.split_height = int(size[0]), int(size[1])
             if os.path.exists(dirpathmovies):
                 self.dirpathmovies.set(dirpathmovies)
                 # inicializa la lista con directorio duardao
@@ -79,7 +80,7 @@ class Flowlayout(tk.Frame):
         config = configparser.RawConfigParser()
         config.add_section('Setings')
         config.set('Setings', 'dirpathmovies', self.dirpathmovies.get())
-        config.set('Setings', 'split_size', (self.split_width, self.split_height))
+        config.set('Setings', 'split_size', "%s, %s"%(str(self.split_width), str(self.split_height)))
         with open(self.setingfile, 'w') as configfile:
             config.write(configfile)
         print('Write config file')
