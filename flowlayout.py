@@ -112,6 +112,10 @@ class Flowlayout(tk.Frame):
     def load_sprite(self, arg):
         if not os.path.isfile(arg):
             print("is not a file")
+        # add number of spirtepana to title
+        index = self.textwidget.index(tk.INSERT)
+        idx = str(index).split('.')[1]
+        self.parent.title('gifview :: ' + idx)
         return SpritePane(self.textwidget, url=arg)
 
     def mouse_scroll(self, event):
