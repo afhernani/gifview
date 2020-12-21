@@ -24,7 +24,7 @@ class MediaImage:
         try:
             self._player = MediaPlayer(self.url, ff_opts=ff_opts)
             ti = time.process_time()
-            time_fin = 1.50
+            time_fin = 2.50
             while self._player.get_metadata()['src_vid_size'] == (0, 0):
                 t = time.process_time()-ti
                 if t >= time_fin:
