@@ -21,15 +21,15 @@ try:
     from .imageblock import ImageBlock
     from .ToolTip import ToolTip, createToolTip
     from .tooltipmenu import ToolTipMenu, createToolTipMenu
-    from .windialog impor LabelEntryButton, FrameButtons,
-            WindowCopyTo, CustomEntry, WindowCopyTo, ToolFile
+    from .windialog import LabelEntryButton, FrameButtons
+    from .windialog import WindowCopyTo, CustomEntry, WindowCopyTo, ToolFile
 except ImportError:
     from ffmplayer import MediaImage
     from graphicblock import Graphics
     from imageblock import ImageBlock
     from ToolTip import ToolTip, createToolTip
     from tooltipmenu import ToolTipMenu, createToolTipMenu
-    from windialog impor LabelEntryButton, FrameButtons,
-            WindowCopyTo, CustomEntry, WindowCopyTo, ToolFile
+    from windialog import LabelEntryButton, FrameButtons
+    from windialog import WindowCopyTo, CustomEntry, WindowCopyTo, ToolFile
 
 
