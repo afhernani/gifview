@@ -22,7 +22,7 @@ try:
     from .ToolTip import ToolTip, createToolTip
     from .tooltipmenu import ToolTipMenu, createToolTipMenu
     from .windialog import LabelEntryButton, FrameButtons
-    from .windialog import WindowCopyTo, CustomEntry, WindowCopyTo, ToolFile
+    from .windialog import WindowCopyTo, CustomEntry, OpenDialogRename, ToolFile
 except ImportError:
     from ffmplayer import MediaImage
     from graphicblock import Graphics
@@ -30,6 +30,6 @@ except ImportError:
     from ToolTip import ToolTip, createToolTip
     from tooltipmenu import ToolTipMenu, createToolTipMenu
     from windialog import LabelEntryButton, FrameButtons
-    from windialog import WindowCopyTo, CustomEntry, WindowCopyTo, ToolFile
+    from windialog import WindowCopyTo, CustomEntry, OpenDialogRename, ToolFile
 
 
