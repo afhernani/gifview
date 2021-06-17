@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 # _*_ coding:UTF-8 _*_
+
 import tkinter as tk
 from PIL import Image, ImageTk, ImageSequence
 import os, sys, subprocess
 from threading import Thread
+import ffmpgelib
 from ffmpgelib import MediaImage, Graphics
 from ffmpgelib import createToolTip
 from datetime import timedelta
+from ffmpgelib import createToolTipMenu, ToolFile
+from ffmpgelib import WindowCopyTo, OpenDialogRename
+
 
 class SpritePane(tk.Frame):
     def __init__(self, parent, url=None, timer=None, **kargs):
@@ -52,8 +57,16 @@ class SpritePane(tk.Frame):
                 'width':self.width, 'height':self.height }
             self.graphics.config(**kv)
         # tooltips -create
-        text=str(timedelta(seconds=self.metadatos['duration']))
+        text = str(timedelta(seconds=self.metadatos['duration']))
         createToolTip(self, text)
+        # Creamos menu
+        self.menu = tk.Menu(self, tearoff=False)
+        self.menu.add_command(label="move ...", command=self.move)
+        self.menu.add_command(label="copy ...", command=self.copy)
+        self.menu.add_command(label="remove ...", command=self.remove)
+        self.menu.add_separator()
+        self.menu.add_command(label="rename ...", command=self.rename)
+        createToolTipMenu(self, self.menu)
         # extraemos imagen:
         self.count = self.graphics.imgBox.count
         self.index = 5
@@ -67,10 +80,54 @@ class SpritePane(tk.Frame):
         self.canvas.bind('<Enter>', self.enter)
         self.canvas.bind('<Leave>', self.leave)
         self.canvas.bind('<Double-Button-1>', self.double_click_canvas)
+        self.canvas.bind('<Button-3>', self.my_popup) # make menu
         self.animating = True
         # self.animate(0)
-        
-    
+
+    # actuaciones de menu
+    def my_popup(self, event):
+        self.menu.tk_popup(event.x_root, event.y_root)
+
+    def move(self):
+        print('video ->', self.url)
+        if os.path.isfile(self.url):
+            window = WindowCopyTo(self)
+            window.title('MOVER ...')
+            window.copy = False
+            window.file.set(self.url)
+            window.path_to_copy.set(os.path.dirname(self.url))
+            window.grab_set()
+
+    def copy(self):
+        print('video ->', self.url)
+        if os.path.isfile(self.url):
+            option = {'width': 600, 'height': 120}
+            window = WindowCopyTo(self, **option)
+            # window.title('MOVER ...')
+            # window.copy = False
+            window.file.set(self.url)
+            window.path_to_copy.set(os.path.dirname(self.url))
+            window.grab_set()
+
+    def remove(self):
+        """Action remove file or delete"""
+        from tkinter.messagebox import askyesno
+        print('video ->', self.url)
+        if os.path.isfile(self.url):
+            answer = askyesno(title='Confirmation',
+                              message='Are you sure that you want to remove?')
+            if answer:
+                ToolFile.remove(self.url)
+
+    def rename(self):
+        print('video ->', self.url)
+        if os.path.isfile(self.url):
+            window = OpenDialogRename(self)
+            window.file.set(self.url)
+            window.name.set("New-" + os.path.basename(self.url))
+            window.grab_set()
+            # TODO: al cambiar el nombre, modificar self.url base.
+
     def check_exist(self)-> tuple:
         '''check if file url video exist an its gif 
             return:
